@@ -403,21 +403,31 @@ const StorageApp = () => {
         </div>
 
         {/* Billing Cycle Selector */}
-        <div className="flex justify-center mb-12 overflow-x-auto pb-4 px-2">
-          <div className="bg-slate-100 p-1 rounded-xl inline-flex flex-nowrap">
+        {/* Billing Cycle Selector */}
+        <div className="flex justify-center mb-12 px-4">
+          <div
+            className="bg-slate-100 p-2 rounded-xl flex flex-wrap md:flex-nowrap gap-2 md:gap-1 
+          justify-center w-full max-w-3xl"
+          >
             {Object.keys(cycles).map((cycleKey) => (
               <button
                 key={cycleKey}
                 onClick={() => setBillingCycle(cycleKey)}
-                className={`px-4 sm:px-6 py-2.5 rounded-lg text-sm sm:text-base font-medium transition-all duration-200 whitespace-nowrap ${
-                  billingCycle === cycleKey
-                    ? "bg-white text-indigo-600 shadow-sm ring-1 ring-black/5"
-                    : "text-slate-500 hover:text-slate-800"
-                }`}
+                className={`
+          px-3 sm:px-4 py-2 rounded-lg 
+          text-xs sm:text-sm md:text-base 
+          font-medium transition-all duration-200 
+          whitespace-nowrap
+          ${
+            billingCycle === cycleKey
+              ? "bg-white text-indigo-600 shadow-sm ring-1 ring-black/5"
+              : "text-slate-500 hover:text-slate-800"
+          }
+        `}
               >
                 {cycles[cycleKey].label}
                 {cycles[cycleKey].discount > 0 && (
-                  <span className="ml-2 text-xs bg-green-100 text-green-700 px-1.5 py-0.5 rounded-full">
+                  <span className="ml-2 text-[10px] sm:text-xs bg-green-100 text-green-700 px-1.5 py-0.5 rounded-full">
                     -{cycles[cycleKey].discount * 100}%
                   </span>
                 )}
@@ -436,16 +446,19 @@ const StorageApp = () => {
             return (
               <div
                 key={plan.id}
-                className={`relative bg-white rounded-2xl border transition-all duration-300 flex flex-col ${
+                className={`relative bg-white rounded-2xl border transition-all duration-300 flex flex-col 
+                ${
                   plan.recommended
-                    ? "border-indigo-500 shadow-xl scale-100 md:scale-105 z-10"
+                    ? "md:border-indigo-500 md:shadow-xl md:scale-105 md:z-10 border-slate-200 shadow-sm"
                     : isAttractive
-                    ? "border-green-400 shadow-lg scale-100 md:scale-105 z-10"
-                    : "border-slate-200 shadow-sm hover:shadow-lg hover:border-indigo-300"
-                }`}
+                    ? "md:border-green-400 md:shadow-lg md:scale-105 md:z-10 border-slate-200 shadow-sm"
+                    : "border-slate-200 shadow-sm"
+                }
+                hover:shadow-lg hover:border-indigo-300
+                `}
               >
                 {plan.recommended && (
-                  <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                  <div className="hidden md:block absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
                     <span className="bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-4 py-1 rounded-full text-sm font-bold shadow-md">
                       Mais Escolhido
                     </span>
@@ -539,13 +552,21 @@ const StorageApp = () => {
                 <div className="p-8 pt-0 mt-auto">
                   <button
                     onClick={() => handleSelectPlan(plan)}
-                    className={`w-full py-3 rounded-xl font-bold text-lg transition ${
-                      plan.recommended
-                        ? "bg-indigo-600 text-white hover:bg-indigo-700 shadow-lg shadow-indigo-200"
-                        : isAttractive
-                        ? "bg-green-600 text-white hover:bg-green-700 shadow-lg shadow-green-200"
-                        : "bg-indigo-50 text-indigo-700 hover:bg-indigo-100"
-                    }`}
+                    className={`
+                        w-full py-3 rounded-xl font-bold text-lg transition shadow-md
+
+                        /* MOBILE: todos iguais */
+                        bg-indigo-600 text-white hover:bg-indigo-700
+
+                        /* DESKTOP: estilos individuais */
+                        md:${
+                          plan.recommended
+                            ? "bg-indigo-600 text-white hover:bg-indigo-700 shadow-lg shadow-indigo-200"
+                            : isAttractive
+                            ? "bg-green-600 text-white hover:bg-green-700 shadow-lg shadow-green-200"
+                            : "bg-indigo-50 text-indigo-700 hover:bg-indigo-100"
+                        }
+                        `}
                   >
                     Começar Agora
                   </button>
@@ -651,7 +672,7 @@ const StorageApp = () => {
   );
 
   return (
-    <div className="font-sans text-slate-800 bg-white min-h-screen flex flex-col">
+    <div className="font-sans text-slate-800 bg-white min-h-screen flex flex-col overflow-x-hidden">
       {/* Navigation */}
       <nav className="bg-white shadow-sm sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
