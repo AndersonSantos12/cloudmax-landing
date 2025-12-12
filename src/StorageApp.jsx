@@ -60,7 +60,7 @@ const StorageApp = () => {
       size: "200 GB",
       description:
         "Ideal para backup de fotos do celular e documentos essenciais.",
-      basePrice: 49.99, // Valor Base Solicitado
+      basePrice: 51.99, // Valor Base Solicitado
       // Estratégia: Incentivar Trimestral/Bimestral e Desincentivar Anual
       customDiscounts: {
         bimonthly: 0.3, // 30% OFF (Muito atraente)
