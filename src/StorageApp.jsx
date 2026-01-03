@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Cloud, Menu, X } from "lucide-react";
+import { Cloud, Menu, X, User, LogIn, UserPlus } from "lucide-react";
 
 // Hooks customizados
 import { useModalState } from "./hooks/useModalState";
@@ -12,6 +12,7 @@ import { FeaturesView } from "./components/Pages/FeaturesView";
 import { SecurityView } from "./components/Pages/SecurityView";
 import { EnterpriseView } from "./components/Pages/EnterpriseView";
 import { PricingView } from "./components/Pages/PricingView";
+import { PaymentPage } from "./components/Pages/PaymentPage";
 
 // Modais
 import { LoginModal } from "./components/Modals/LoginModal";
@@ -26,6 +27,8 @@ const StorageApp = () => {
   // Estado da página
   const [activePage, setActivePage] = React.useState("home");
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+  const [isProfileMenuOpen, setIsProfileMenuOpen] = React.useState(false);
+  const [paymentPlanData, setPaymentPlanData] = React.useState(null);
 
   // Hooks de estado compartilhado
   const {
@@ -87,7 +90,13 @@ const StorageApp = () => {
     });
   };
 
-  const handleCheckoutLogin = () => proceedToLogin();
+  const handleCheckoutLogin = () => {
+    if (selectedPlanData) {
+      setPaymentPlanData(selectedPlanData);
+      closeAllModals();
+      setActivePage("payment");
+    }
+  };
   const handleCheckoutSignup = () => proceedToSignup();
 
   const handleLoginSuccess = () => {
@@ -122,6 +131,10 @@ const StorageApp = () => {
             onSelectPlan={handleSelectPlan}
             getPriceForPlan={getPriceForPlan}
           />
+        );
+      case "payment":
+        return (
+          <PaymentPage onNavigate={handleNavigate} planData={paymentPlanData} />
         );
       default:
         return <HomeView onNavigate={handleNavigate} />;
@@ -181,20 +194,45 @@ const StorageApp = () => {
               <NavLink page="enterprise" label="Empresas" />
             </div>
 
-            {/* Desktop Auth Buttons */}
-            <div className="hidden md:flex gap-4">
+            {/* Desktop Profile Dropdown */}
+            <div className="hidden md:block relative">
               <button
-                onClick={openLogin}
-                className="text-slate-600 font-medium hover:text-indigo-600"
+                onClick={() => setIsProfileMenuOpen(!isProfileMenuOpen)}
+                className="w-10 h-10 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center hover:shadow-lg hover:scale-105 transition-all"
               >
-                Login
+                <User size={20} className="text-white" />
               </button>
-              <button
-                onClick={openSignup}
-                className="bg-indigo-600 text-white px-6 py-2 rounded-full font-semibold hover:bg-indigo-700 transition shadow-lg shadow-indigo-200"
-              >
-                Criar Conta
-              </button>
+
+              {isProfileMenuOpen && (
+                <>
+                  <div
+                    className="fixed inset-0 z-10"
+                    onClick={() => setIsProfileMenuOpen(false)}
+                  />
+                  <div className="absolute right-0 mt-2 w-48 bg-white rounded-xl shadow-xl border border-slate-200 py-2 z-20">
+                    <button
+                      onClick={() => {
+                        setIsProfileMenuOpen(false);
+                        openLogin();
+                      }}
+                      className="w-full text-left px-4 py-2.5 hover:bg-slate-50 flex items-center gap-3 text-slate-700 transition"
+                    >
+                      <LogIn size={18} />
+                      <span className="font-medium">Login</span>
+                    </button>
+                    <button
+                      onClick={() => {
+                        setIsProfileMenuOpen(false);
+                        openSignup();
+                      }}
+                      className="w-full text-left px-4 py-2.5 hover:bg-slate-50 flex items-center gap-3 text-slate-700 transition"
+                    >
+                      <UserPlus size={18} />
+                      <span className="font-medium">Criar Conta</span>
+                    </button>
+                  </div>
+                </>
+              )}
             </div>
 
             {/* Mobile Menu Toggle */}

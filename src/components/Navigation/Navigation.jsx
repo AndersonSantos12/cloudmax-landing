@@ -1,5 +1,5 @@
-import React from "react";
-import { Cloud, Menu, X } from "lucide-react";
+import React, { useState } from "react";
+import { Cloud, Menu, X, User, LogIn, UserPlus } from "lucide-react";
 
 export const Navigation = ({
   activePage,
@@ -9,6 +9,8 @@ export const Navigation = ({
   onOpenLogin,
   onOpenSignup,
 }) => {
+  const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
+
   const NavLink = ({ page, label }) => (
     <button
       onClick={() => onNavigate(page)}
@@ -56,19 +58,46 @@ export const Navigation = ({
             <NavLink page="pricing" label="Preços" />
             <NavLink page="enterprise" label="Empresas" />
           </div>
-          <div className="hidden md:flex gap-4">
+
+          {/* Dropdown de perfil desktop */}
+          <div className="hidden md:block relative">
             <button
-              onClick={onOpenLogin}
-              className="text-slate-600 font-medium hover:text-indigo-600"
+              onClick={() => setIsProfileMenuOpen(!isProfileMenuOpen)}
+              className="w-10 h-10 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center hover:shadow-lg hover:scale-105 transition-all"
             >
-              Login
+              <User size={20} className="text-white" />
             </button>
-            <button
-              onClick={onOpenSignup}
-              className="bg-indigo-600 text-white px-6 py-2 rounded-full font-semibold hover:bg-indigo-700 transition shadow-lg shadow-indigo-200"
-            >
-              Criar Conta
-            </button>
+
+            {isProfileMenuOpen && (
+              <>
+                <div
+                  className="fixed inset-0 z-10"
+                  onClick={() => setIsProfileMenuOpen(false)}
+                />
+                <div className="absolute right-0 mt-2 w-48 bg-white rounded-xl shadow-xl border border-slate-200 py-2 z-20">
+                  <button
+                    onClick={() => {
+                      setIsProfileMenuOpen(false);
+                      onOpenLogin();
+                    }}
+                    className="w-full text-left px-4 py-2.5 hover:bg-slate-50 flex items-center gap-3 text-slate-700 transition"
+                  >
+                    <LogIn size={18} />
+                    <span className="font-medium">Login</span>
+                  </button>
+                  <button
+                    onClick={() => {
+                      setIsProfileMenuOpen(false);
+                      onOpenSignup();
+                    }}
+                    className="w-full text-left px-4 py-2.5 hover:bg-slate-50 flex items-center gap-3 text-slate-700 transition"
+                  >
+                    <UserPlus size={18} />
+                    <span className="font-medium">Criar Conta</span>
+                  </button>
+                </div>
+              </>
+            )}
           </div>
 
           <div className="md:hidden">
