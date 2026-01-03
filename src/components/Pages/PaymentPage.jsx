@@ -190,7 +190,9 @@ export const PaymentPage = ({ onNavigate, planData }) => {
                 {planData?.name}
               </div>
               <div className="text-slate-600">{planData?.size}</div>
-              <div className="text-sm text-slate-500 mt-2">Licença 30 Dias</div>
+              <div className="text-sm text-slate-500 mt-2">
+                Licença de 30 Dias
+              </div>
             </div>
 
             {/* Chave de Acesso */}
@@ -223,14 +225,14 @@ export const PaymentPage = ({ onNavigate, planData }) => {
             </p>
           </div>
 
-          <div className="flex flex-col gap-3">
+          {/*           <div className="flex flex-col gap-3">
             <button
               onClick={() => onNavigate("home")}
               className="px-6 py-3 bg-slate-900 text-white rounded-xl font-bold hover:bg-slate-800 transition"
             >
               Voltar para Home
             </button>
-          </div>
+          </div> */}
         </div>
       </div>
     );
