@@ -252,7 +252,7 @@ export const PaymentPage = ({ onNavigate, planData }) => {
         <div className="grid md:grid-cols-3 gap-8">
           {/* Formulário de Pagamento */}
           <div className="md:col-span-2">
-            <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-8">
+            <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 sm:p-8">
               <h2 className="text-2xl font-bold text-slate-900 mb-6">
                 Informações de Pagamento
               </h2>
@@ -601,8 +601,8 @@ export const PaymentPage = ({ onNavigate, planData }) => {
                   </div>
 
                   {/* QR Code Placeholder */}
-                  <div className="bg-slate-50 rounded-xl p-8 border border-slate-200 flex flex-col items-center">
-                    <div className="w-64 h-64 bg-white border-4 border-slate-300 rounded-lg flex items-center justify-center mb-4">
+                  <div className="bg-slate-50 rounded-xl p-6 sm:p-8 border border-slate-200 flex flex-col items-center">
+                    <div className="w-full max-w-[220px] aspect-square bg-white border-4 border-slate-300 rounded-lg flex items-center justify-center mb-4">
                       <div className="text-center">
                         <p className="text-slate-400 mb-2">QR Code</p>
                         <div className="grid grid-cols-8 gap-1">
