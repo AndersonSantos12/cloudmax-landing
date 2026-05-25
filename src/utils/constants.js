@@ -23,7 +23,7 @@ export const PLANS = [
     size: "1 GB",
     description:
       "Ideal para backup de fotos do celular e documentos essenciais.",
-    basePrice: 59.99,
+    basePrice: 39.99,
     customDiscounts: {
       bimonthly: 0.27,
       quarterly: 0.48,
